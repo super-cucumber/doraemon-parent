@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vipgp.doraemon.core.id.generator.dao.FlickerIdDao">
+    <resultMap id="resultMap" type="com.vipgp.doraemon.core.id.generator.domain.FlickerIdDO">
+        <id column="id" property="id"/>
+        <result column="gmt_create" property="gmtCreate"/>
+    </resultMap>
+
+    <sql id="table">
+        flicker_id
+    </sql>
+
+    <insert id="add" parameterType="com.vipgp.doraemon.core.id.generator.domain.FlickerIdDO" useGeneratedKeys="true"
+            keyColumn="id" keyProperty="id">
+        INSERT INTO <include refid="table"/> (gmt_create) VALUES (#{gmtCreate})
+    </insert>
+    
+    <update id="setAutoIncrementIncrement">
+        set session auto_increment_increment=3
+    </update>
+
+    <update id="setAutoIncrementOffset" parameterType="java.lang.Integer">
+        set session auto_increment_offset=#{offset}
+    </update>
+</mapper>
